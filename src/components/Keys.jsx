@@ -1,4 +1,4 @@
-export default function Keys({ label, className }) {
+export default function Keys({ label, className, onButtonClick }) {
   return (
     <button
       className={`
@@ -6,6 +6,7 @@ export default function Keys({ label, className }) {
         hover:bg-gray-500 active:bg-gray-400 transition-colors
         ${className || ""}
       `}
+      onClick={()=>onButtonClick(label)}
     >
       {label}
     </button>

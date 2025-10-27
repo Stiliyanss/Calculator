@@ -1,6 +1,37 @@
+import { useState } from "react";
 import Keys from "./Keys";
 
 export default function Calculator() {
+
+  const [display, setDisplay] = useState('');
+
+  function calculateResult(){
+    let calcRes = eval(display);
+    calcRes = parseFloat(calcRes.toFixed(3));
+    setDisplay(calcRes)
+  }
+
+  function handleButton(value){
+    if(value== "AC"){
+      setDisplay('');
+    }
+    else if (value=='C'){
+      setDisplay(display.slice(0,-1))
+    }
+    else if(isOperator(value)) {
+        setDisplay(display+value);
+    }
+    else if (value == '='){
+      calculateResult();
+    }
+    else{
+      setDisplay(display+value);
+    }
+  }
+
+  function isOperator(char){
+    return ['+','-','*','/','%'].includes(char);
+  }
 
   const keys = [
     'AC','C','%','/',
@@ -15,7 +46,7 @@ export default function Calculator() {
         
         {/* Display */}
         <div className="bg-gray-900 text-white text-right text-5xl px-4 py-8 rounded-xl mb-6">
-          0
+          {display}
         </div>
 
        {/* Keypad */}
@@ -30,16 +61,18 @@ export default function Calculator() {
         className={`
           ${isLastColumn ? "bg-orange-500 hover:bg-orange-400 active:bg-orange-300" : ""}
         `}
+        onButtonClick = {handleButton}
       />
     );
   })}
 
   {/* Last row */}
-  <Keys label="." />
-  <Keys label="0" />
+  <Keys label="." onButtonClick = {handleButton} />
+  <Keys label="0" onButtonClick = {handleButton}/>
   <Keys
     label="="
     className="col-span-2 bg-orange-500 hover:bg-orange-400 active:bg-orange-300"
+    onButtonClick = {handleButton}
   />
 </div>
 
