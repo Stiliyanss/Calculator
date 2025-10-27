@@ -1,9 +1,12 @@
+import Calculator from "./components/Calculator"
+
 function App() {
 
   return (
-    <>
-    <h1 className="text-5xl">wdwd</h1>
-    </>
+    <div className="flex items-center justify-center bg-gray-800 text-white min-h-screen"> 
+      <Calculator/>
+    </div>
+    
   )
 }
 
